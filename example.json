@@ -1,0 +1,244 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "title": "Starry Night",
+      "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh.",
+      "artist": "Vincent van Gogh",
+      "startingBid": 5000,
+      "highestBid": {
+        "amount": 750500
+      },
+      "allBids": [
+        {
+          "userId": "d446",
+          "amount": 244000
+        },
+        {
+          "userId": "d446",
+          "amount": 244500
+        },
+        {
+          "userId": "3245",
+          "amount": 245000
+        },
+        {
+          "userId": "3456",
+          "amount": 245500
+        },
+        {
+          "userId": "8954",
+          "amount": 246000
+        },
+        {
+          "userId": "4369",
+          "amount": 750000
+        },
+        {
+          "userId": "d446",
+          "amount": 750500
+        }
+      ],
+      "image": "https://source.unsplash.com/random/800x600/?art",
+      "auctionEnds": "2024-05-15",
+      "filters": [
+        "Modern"
+      ]
+    },
+    {
+      "id": "3",
+      "title": "The Persistence of Memory",
+      "description": "Salvador Dalí's famous painting featuring melting clocks in a dreamlike landscape.",
+      "artist": "Salvador Dalí",
+      "startingBid": 6000,
+      "highestBid": {
+        "amount": 854
+      },
+      "allBids": [
+        {
+          "userId": "d446",
+          "amount": 854
+        }
+      ],
+      "image": "https://source.unsplash.com/random/800x600/?surrealism",
+      "auctionEnds": "2024-07-25",
+      "filters": [
+        "Modern"
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Girl with a Pearl Earring",
+      "description": "Johannes Vermeer's iconic painting of a girl wearing a pearl earring.",
+      "artist": "Johannes Vermeer",
+      "startingBid": 4500,
+      "highestBid": {
+        "amount": 8000
+      },
+      "allBids": [],
+      "image": "https://source.unsplash.com/random/800x600/?portrait,painting",
+      "auctionEnds": "2024-08-30",
+      "filters": [
+        "1800s"
+      ]
+    },
+    {
+      "id": "5",
+      "title": "The Starry Night",
+      "description": "Another version of Vincent van Gogh's masterpiece showing a swirling night sky above a village.",
+      "artist": "Vincent van Gogh",
+      "startingBid": 5500,
+      "highestBid": {
+        "id": 4,
+        "amount": 4395
+      },
+      "allBids": [],
+      "image": "https://source.unsplash.com/random/800x600/?night,painting",
+      "auctionEnds": "2024-09-15",
+      "filters": [
+        "1700s"
+      ]
+    },
+    {
+      "id": "eeac",
+      "title": "Rhinoceros",
+      "description": "\"Rhinoceros is the name commonly given to a woodcut executed by German artist Albrecht Dürer in 1515.[a] Dürer never saw the actual rhinoceros, which was the first living example seen in Europe since Roman times. Instead the image is based on an anonymous written description and brief sketch of an Indian rhinoceros brought to Lisbon in 1515. It was regarded as a true representation of a rhinoceros into the late 18th century, and it has been said of Dürer's woodcut that \"probably no animal picture has exerted such a profound influence on the arts\".",
+      "artist": "Albrecht Durer",
+      "startingBid": "5000000",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/The_Rhinoceros_%28NGA_1964.8.697%29_enhanced.png/1024px-The_Rhinoceros_%28NGA_1964.8.697%29_enhanced.png",
+      "auctionEnds": "2024-04-07T10:16",
+      "seller": "d446",
+      "filters": [
+        "Print",
+        "Renaissance",
+        "Europe"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "username": "artlover",
+      "name": "Veronica",
+      "lastname": "Strand",
+      "email": "veronica@example.com",
+      "password": "123",
+      "ongoingBids": [],
+      "wonItems": [],
+      "lostItems": []
+    },
+    {
+      "id": "2",
+      "username": "user2",
+      "name": "John",
+      "lastname": "Doe",
+      "email": "user2@example.com",
+      "password": "password2",
+      "ongoingBids": [],
+      "wonItems": [],
+      "lostItems": []
+    },
+    {
+      "id": "3",
+      "username": "user3",
+      "name": "Alice",
+      "lastname": "Johnson",
+      "email": "user3@example.com",
+      "password": "password3",
+      "ongoingBids": [],
+      "wonItems": [],
+      "lostItems": []
+    },
+    {
+      "id": "4",
+      "username": "user4",
+      "name": "Bob",
+      "lastname": "Brown",
+      "email": "user4@example.com",
+      "password": "password4",
+      "ongoingBids": [],
+      "wonItems": [],
+      "lostItems": []
+    },
+    {
+      "id": "d446",
+      "email": "e@e",
+      "password": "e",
+      "username": "George",
+      "name": "George",
+      "lastname": "G",
+      "ongoingBids": [],
+      "savedAuctions": [
+        {
+          "itemId": "1",
+          "title": "Starry Night",
+          "image": "https://source.unsplash.com/random/800x600/?art",
+          "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh."
+        }
+      ]
+    },
+    {
+      "id": "27ba",
+      "email": "veronica@gmail.com",
+      "password": "123"
+    }
+  ],
+  "bids": [
+    {
+      "id": "e2d8",
+      "time": "bidTime",
+      "bidder": "d446",
+      "item": "1",
+      "amount": 244000
+    },
+    {
+      "id": "ddd3",
+      "time": "bidTime",
+      "bidder": "d446",
+      "item": "3",
+      "amount": 854
+    },
+    {
+      "id": "71ff",
+      "time": "bidTime",
+      "bidder": "d446",
+      "item": "1",
+      "amount": 244500
+    },
+    {
+      "id": "c201",
+      "time": "bidTime",
+      "bidder": "1",
+      "item": "1",
+      "amount": 245000
+    },
+    {
+      "id": "7f6a",
+      "time": "bidTime",
+      "bidder": "1",
+      "item": "1",
+      "amount": 245500
+    },
+    {
+      "id": "3a56",
+      "time": "bidTime",
+      "bidder": "1",
+      "item": "1",
+      "amount": 246000
+    },
+    {
+      "id": "573d",
+      "time": "bidTime",
+      "bidder": "1",
+      "item": "1",
+      "amount": 750000
+    },
+    {
+      "id": "0541",
+      "time": "bidTime",
+      "bidder": "d446",
+      "item": "1",
+      "amount": 750500
+    }
+  ]
+}
