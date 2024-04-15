@@ -8,5 +8,5 @@ const bidSchema = mongoose.Schema({
     date: Date
 })
 
-const Bid = mongoose.model('Bid', bidSchema)
-export default Bid;
+const bidModel = mongoose.model('Bid', bidSchema)
+export default bidModel;

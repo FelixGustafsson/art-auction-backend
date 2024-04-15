@@ -1,5 +1,4 @@
 import userModel from '../models/userModel.js';
-import bcrypt from 'bcrypt'
 
 export default function users(server) {
     server.post('/api/users', async (req, res) => {
@@ -25,20 +24,25 @@ export default function users(server) {
     });
 
     server.post('/api/login', async (req, res) => {
-        const salt = 1234567;
-        const hashedPassword = await bcrypt.hash(req.body.password, salt)
         const user = await userModel.findOne({
             email: req.body.email,
-            password: hashedPassword
         });
         if (user) {
-            req.session.login = user._id;
-            res.json({
-                message: `Login successful`,
-            });
-        } else {
-            res.json({ message: 'User not found' });
-        }
+            if (await user.matchPassword(req.body.password)) {
+                req.session.login = user._id;
+                res.json({
+                    message: `Login successful`,
+                });
+            } 
+            else {
+                res.json({
+                    message: `Password incorrect`,
+                });
+            }
+        }    
+            else {
+                res.json({ message: 'User not found' });
+            }
     });
 
     server.delete('/api/login', async (req, res) => {
