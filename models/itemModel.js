@@ -7,6 +7,9 @@ const itemSchema = mongoose.Schema({
     startingBid: Number,
     image: String,
     auctionEnds: Date,
+    locationFilter: String,
+    periodFilter: String,
+    typeFilter: String,
 });
 
 const itemModel = mongoose.model('items', itemSchema);
