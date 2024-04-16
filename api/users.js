@@ -7,8 +7,16 @@ export default function users(server) {
             password: req.body.password,
         });
         try {
-            const result = await user.save();
-            res.status(201).json();
+            const existingUser = await userModel.findOne({
+                email: req.body.email,
+                })
+            if (existingUser) {
+                res.status(409).json({message: 'This email address already has an account!'})
+            }
+            else {
+                const result = await user.save();
+                res.status(201).json({message: 'Registration successful.'});
+            }
         }
         catch (err) {
             res.status(500).json({ message: err.message });
