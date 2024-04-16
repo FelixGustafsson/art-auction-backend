@@ -4,7 +4,7 @@ import User from "./userModel.js";
 const bidSchema = mongoose.Schema({
     amount: Number,
     bidder: {type: mongoose.Schema.Types.ObjectId},
-//    item: {type: Schema.Types.ObjectId, ref: 'items'},
+    item: {type: mongoose.Schema.Types.ObjectId},
     date: Date
 })
 
