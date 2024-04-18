@@ -1,11 +1,22 @@
 import mongoose from "mongoose";
-import User from "./userModel.js";
 
 const bidSchema = mongoose.Schema({
-    amount: Number,
-    bidder: {type: mongoose.Schema.Types.ObjectId},
-//    item: {type: Schema.Types.ObjectId, ref: 'items'},
-    date: Date
+    amount: {
+        type: Number,
+        required: true
+    },
+    bidder: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    item: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    date: {
+        type: Date,
+        required: true
+    }
 })
 
 const bidModel = mongoose.model('Bid', bidSchema)
