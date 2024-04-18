@@ -9,13 +9,13 @@ export default function users(server) {
         try {
             const existingUser = await userModel.findOne({
                 email: req.body.email,
-                })
+            })
             if (existingUser) {
-                res.status(409).json({message: 'This email address already has an account!'})
+                res.status(409).json({ message: 'This email address already has an account!' })
             }
             else {
                 const result = await user.save();
-                res.status(201).json({message: 'Registration successful.'});
+                res.status(201).json({ message: 'Registration successful.' });
             }
         }
         catch (err) {
@@ -27,7 +27,7 @@ export default function users(server) {
         let result = await userModel.findById(req.params.id);
         try {
             if (!result) {
-                res.status(404).json({message: 'User not found'});
+                res.status(404).json({ message: 'User not found' });
             } else {
                 res.status(200).send(result);
             }
@@ -37,43 +37,43 @@ export default function users(server) {
         }
     });
 
-    server.get('/api/login', async (req, res) => {
-        try {
-            res.json(req.session);
-        }
-        catch (err) {
-            res.status(500).json({ message: err.message });
-        }
-    });
+    // server.get('/api/login', async (req, res) => {
+    //     try {
+    //         res.json(req.session);
+    //     }
+    //     catch (err) {
+    //         res.status(500).json({ message: err.message });
+    //     }
+    // });
 
     server.post('/api/login', async (req, res) => {
         if (req.session.login) {
             res.status(409).json({ message: 'User already logged in' });
-          } else {
+        } else {
             try {
                 const user = await userModel.findOne({
                     email: req.body.email,
-                    });
-                    if (user) {
+                });
+                if (user) {
                     if (await user.matchPassword(req.body.password)) {
-                          req.session.login = user._id;
-                          res.status(200).json({
-                              message: `Login successful`,
-                          });
-                    } 
-                    else {
-                          res.status(401).json({
-                              message: `Password incorrect`,
-                          });
+
+                        req.session.login = user._id;
+
+                        res.status(200).json(user._id);
                     }
-                }    
                     else {
-                          res.status(404).json({ message: 'User not found' });
+                        res.status(401).json({
+                            message: `Password incorrect`,
+                        });
                     }
                 }
-            catch (err){
-                      res.status(500).json({ message: err.message });
+                else {
+                    res.status(404).json({ message: 'User not found' });
                 }
+            }
+            catch (err) {
+                res.status(500).json({ message: err.message });
+            }
         }
     });
 
