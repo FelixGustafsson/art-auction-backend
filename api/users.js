@@ -6,35 +6,74 @@ export default function users(server) {
             email: req.body.email,
             password: req.body.password,
         });
-        const result = await user.save();
-        res.json({ user: result, message: res.status });
+        try {
+            const existingUser = await userModel.findOne({
+                email: req.body.email,
+                })
+            if (existingUser) {
+                res.status(409).json({message: 'This email address already has an account!'})
+            }
+            else {
+                const result = await user.save();
+                res.status(201).json({message: 'Registration successful.'});
+            }
+        }
+        catch (err) {
+            res.status(500).json({ message: err.message });
+        }
     });
 
     server.get('/api/users/:id', async (req, res) => {
         let result = await userModel.findById(req.params.id);
-        if (!result) {
-            res.send('User not found').status(404);
-        } else {
-            res.send(result).status(200);
+        try {
+            if (!result) {
+                res.status(404).json({message: 'User not found'});
+            } else {
+                res.status(200).send(result);
+            }
+        }
+        catch (err) {
+            res.status(500).json({ message: err.message });
         }
     });
 
     server.get('/api/login', async (req, res) => {
-        res.json(req.session);
+        try {
+            res.json(req.session);
+        }
+        catch (err) {
+            res.status(500).json({ message: err.message });
+        }
     });
 
     server.post('/api/login', async (req, res) => {
-        const user = await userModel.findOne({
-            email: req.body.email,
-            password: req.body.password,
-        });
-        if (user) {
-            req.session.login = user._id;
-            res.json({
-                message: `Login successful`,
-            });
-        } else {
-            res.json({ message: 'User not found' });
+        if (req.session.login) {
+            res.status(409).json({ message: 'User already logged in' });
+          } else {
+            try {
+                const user = await userModel.findOne({
+                    email: req.body.email,
+                    });
+                    if (user) {
+                    if (await user.matchPassword(req.body.password)) {
+                          req.session.login = user._id;
+                          res.status(200).json({
+                              message: `Login successful`,
+                          });
+                    } 
+                    else {
+                          res.status(401).json({
+                              message: `Password incorrect`,
+                          });
+                    }
+                }    
+                    else {
+                          res.status(404).json({ message: 'User not found' });
+                    }
+                }
+            catch (err){
+                      res.status(500).json({ message: err.message });
+                }
         }
     });
 
@@ -42,7 +81,10 @@ export default function users(server) {
         if (req.session.login) {
             const user = await userModel.findById(req.session.login);
             delete req.session.login;
-            res.json({ message: `Logged you out, ${user.email}` });
+            res.status(200).json({ message: `Logged you out, ${user.email}` });
+        }
+        else {
+            res.status(404).json({ message: 'No user is logged in' });
         }
     });
 }

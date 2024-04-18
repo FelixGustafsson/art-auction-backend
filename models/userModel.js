@@ -1,50 +1,48 @@
-import mongoose from 'mongoose'
-import bcrypt from 'bcrypt'
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
-const userSchema = mongoose.Schema({
+const userSchema = mongoose.Schema(
+  {
     username: {
-        type: String,
+      type: String,
     },
     password: {
-        type: String,
-        required: true,
-        unique: true,
+      type: String,
+      required: true,
+      unique: true,
     },
     email: {
-        type: String,
-        required: true,
-        unique: true,
+      type: String,
+      required: true,
+      unique: true,
     },
     name: {
-        type: String,
-
+      type: String,
     },
     lastname: {
-        type: String,
+      type: String,
     },
-}, {
+  },
+  {
     timestamp: true,
-})
+  }
+);
 
-// verifiera lösenord 
+// verifiera lösenord
 userSchema.methods.matchPassword = async function (enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password)
-
-}
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 //Kryptera Lösenord
-userSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) {
-        next()
-    }
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt)
-})
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = bcrypt.hash(this.password, salt);
+});
 
-
-
-const User = mongoose.model('User', userSchema)
-export default User;
-
+const userModel = mongoose.model("User", userSchema);
+export default userModel;
 
 //För att använda user.matchPassword i controllers:
 // if(user && (await user.matchPassword(password))){
