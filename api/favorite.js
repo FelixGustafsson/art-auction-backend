@@ -1,4 +1,4 @@
-import favoriteModel from "../models/favoriteModel";
+import favoriteModel from "../models/favoriteModel.js";
 
 export default function favorites(server) {
     server.post("/api/favorite", async (req, res) => {
