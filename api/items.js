@@ -16,6 +16,14 @@ export default function items(server) {
 
     })
 
+    server.get("/api/items/user/:id", async (req, res) => {
+        try {
+            const items = await itemModel.find({ seller: req.params.id });
+            items ? res.status(200).json(items) : res.json({ message: "You have no saved auctions" });
+        } catch (error) {
+            res.status(500).json({ message: "Unknown error" });
+        }})
+
     server.post("/api/item", async (req, res) => {
         try {
             const item = new itemModel({

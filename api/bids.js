@@ -1,9 +1,29 @@
 import bidModel from "../models/bidModel.js";
+import itemModel from "../models/itemModel.js";
 
 export default function bids(server) {
   server.get("/api/bids", async (req, res) => {
     const bids = await bidModel.find();
         res.json(bids);
+  })
+
+  server.get("/api/bids/user/:id", async (req, res) => {
+    try{
+      const userBids = await bidModel.find({bidder: req.params.id});
+      if (!userBids) {
+        return res.json([]);
+      }
+      let bids = [];
+      for (const bid of userBids) {
+        const item = await itemModel.findById(bid.item)
+        bids = [...bids, item]
+      }
+      console.log(bids)
+      res.status(200).json(bids);
+    }
+    catch (err) {
+      return res.status(500).json({ message: err.message });
+    }
   })
 
   server.get("/api/bids/:id", async (req, res) => {

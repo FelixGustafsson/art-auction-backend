@@ -10,6 +10,7 @@ const itemSchema = mongoose.Schema({
     locationFilter: String,
     periodFilter: String,
     typeFilter: String,
+    seller: { type: mongoose.Schema.Types.ObjectId, required: true }
 });
 
 const itemModel = mongoose.model('items', itemSchema);
