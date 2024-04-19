@@ -6,10 +6,10 @@ const itemSchema = mongoose.Schema({
     artist: String,
     startingBid: Number,
     image: String,
-    auctionEnds: Date,
-    locationFilter: String,
-    periodFilter: String,
-    typeFilter: String,
+    auctionEnds: String,
+    location: String,
+    period: String,
+    type: String,
     seller: { type: mongoose.Schema.Types.ObjectId, required: true }
 });
 
