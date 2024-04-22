@@ -60,6 +60,7 @@ export default function users(server) {
                         req.session.login = user._id;
 
                         res.status(200).json(user._id);
+                        console.log(req.session);
                     }
                     else {
                         res.status(401).json({

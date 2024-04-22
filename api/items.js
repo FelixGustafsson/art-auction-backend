@@ -22,10 +22,12 @@ export default function items(server) {
             items ? res.status(200).json(items) : res.json({ message: "You have no saved auctions" });
         } catch (error) {
             res.status(500).json({ message: "Unknown error" });
-        }})
+        }
+    })
 
     server.post("/api/item", async (req, res) => {
         try {
+            console.log(req.body, req.session);
             const item = new itemModel({
                 title: req.body.title,
                 description: req.body.description,
@@ -38,6 +40,7 @@ export default function items(server) {
                 period: req.body.period,
                 type: req.body.type,
             });
+
             if (item) {
                 const result = await item.save();
                 console.log(result);
