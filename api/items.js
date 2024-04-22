@@ -13,7 +13,6 @@ export default function items(server) {
         } catch (error) {
             res.status(404).json({ message: "Item not found" });
         }
-
     })
 
     server.get("/api/items/user/:id", async (req, res) => {
@@ -54,12 +53,14 @@ export default function items(server) {
     })
 
     server.patch("/api/item/:id", async (req, res) => {
-        const { newDescription } = req.body
+        const newDescription = req.body.description;
         try {
             const item = await itemModel.findById(req.params.id);
-            if (item && newDescription.length > 0) {
-                item.description = newDescription
-                await item.save()
+            console.log(item);
+            console.log(newDescription)            
+            if (item) {
+                item.description = newDescription;
+                await item.save();
                 res.status(200).json({ message: "Successfully updated description" });
             } else {
                 res.status(404).json({ message: "Item not found" });
