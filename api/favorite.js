@@ -34,4 +34,18 @@ export default function favorites(server) {
             res.status(500).json({ message: err.message });
         }
     })
+
+    server.delete("/api/favorite/:id", async (req, res) => {
+        try {
+            const favoriteToDelete = await favoriteModel.findOne({ item: req.params.id, user: req.session.login });
+            const result = await favoriteModel.deleteOne({ _id: favoriteToDelete._id });
+            if (result.deletedCount === 1) {
+                res.status(200).json({ message: "Successfully deleted favorite" });
+            } else {
+                res.status(404).json({ message: "Favorite not found" });
+            }
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    })
 }
