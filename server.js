@@ -1,5 +1,4 @@
 import express from "express";
-import cors from "cors";
 import mongoose from "mongoose";
 import session from "express-session";
 import dotenv from "dotenv";
@@ -7,7 +6,7 @@ import errorHandler from "./middleware/errorMiddleware.js";
 import apiRegister from "./apiRegister.js";
 dotenv.config();
 
-const port = process.env.PORT || 5173;
+const port = process.env.PORT;
 const server = express();
 
 const connectDB = async () => {
@@ -21,17 +20,12 @@ const connectDB = async () => {
 connectDB();
 
 server.use(express.json());
-server.use(cors());
 
 server.use(
   session({
     secret: "secret",
     resave: false,
-    saveUninitialized: false,
-    cookies: {
-      secure: false,
-      maxAge: 960000
-    },
+    saveUninitialized: false
   })
 );
 

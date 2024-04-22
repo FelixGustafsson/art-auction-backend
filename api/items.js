@@ -16,8 +16,18 @@ export default function items(server) {
 
     })
 
+    server.get("/api/items/user/:id", async (req, res) => {
+        try {
+            const items = await itemModel.find({ seller: req.params.id });
+            items ? res.status(200).json(items) : res.json({ message: "You have no saved auctions" });
+        } catch (error) {
+            res.status(500).json({ message: "Unknown error" });
+        }
+    })
+
     server.post("/api/item", async (req, res) => {
         try {
+            console.log(req.body, req.session);
             const item = new itemModel({
                 title: req.body.title,
                 description: req.body.description,
@@ -25,17 +35,19 @@ export default function items(server) {
                 startingBid: req.body.startingBid,
                 image: req.body.image,
                 auctionEnds: new Date(req.body.auctionEnds),
-                locationFilter: req.body.locationFilter,
-                periodFilter: req.body.periodFilter,
-                typeFilter: req.body.typeFilter,
+                seller: req.session.login,
+                location: req.body.location,
+                period: req.body.period,
+                type: req.body.type,
             });
+
             if (item) {
                 const result = await item.save();
+                console.log(result);
+                res.status(201).json({ message: "Successfully created item" });
             } else {
                 res.status(400).json({ message: "Invalid item" });
             }
-
-            res.status(201).json({ message: "Successfully created item" });
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
