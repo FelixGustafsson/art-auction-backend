@@ -79,13 +79,16 @@ export default function users(server) {
     });
 
     server.delete('/api/login', async (req, res) => {
-        if (req.session.login) {
-            const user = await userModel.findById(req.session.login);
-            delete req.session.login;
-            res.status(200).json({ message: `Logged you out, ${user.email}` });
-        }
-        else {
-            res.status(404).json({ message: 'No user is logged in' });
+        try {
+            if (req.session.login) {
+                req.session.destroy();
+                res.status(200).json({ message: `Logged you out` });
+            }
+            else {
+                res.status(404).json({ message: 'No user is logged in' });
+            }
+        } catch (err) {
+            res.status(500).json({ message: err.message });
         }
     });
 }
