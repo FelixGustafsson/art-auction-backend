@@ -3,7 +3,7 @@ import itemModel from "../models/itemModel.js";
 export default function items(server) {
     server.get("/api/items", async (req, res) => {
         const items = await itemModel.find();
-        res.json(items);
+        await res.json(items);
     })
 
     server.get("/api/item/:id", async (req, res) => {
