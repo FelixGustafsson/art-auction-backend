@@ -9,7 +9,7 @@ export default function items(server) {
     server.get("/api/item/:id", async (req, res) => {
         try {
             const item = await itemModel.findById(req.params.id);
-            res.json(item);
+            res.status(200).json(item);
         } catch (error) {
             res.status(404).json({ message: "Item not found" });
         }
@@ -42,7 +42,6 @@ export default function items(server) {
 
             if (item) {
                 const result = await item.save();
-                console.log(result);
                 res.status(201).json({ message: "Successfully created item" });
             } else {
                 res.status(400).json({ message: "Invalid item" });
@@ -55,9 +54,7 @@ export default function items(server) {
     server.patch("/api/item/:id", async (req, res) => {
         const newDescription = req.body.description;
         try {
-            const item = await itemModel.findById(req.params.id);
-            console.log(item);
-            console.log(newDescription)            
+            const item = await itemModel.findById(req.params.id);            
             if (item) {
                 item.description = newDescription;
                 await item.save();
