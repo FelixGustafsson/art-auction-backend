@@ -29,7 +29,7 @@ export default function users(server) {
             if (!result) {
                 res.status(404).json({ message: 'User not found' });
             } else {
-                res.status(200).send(result);
+                res.status(200).json(result);
             }
         }
         catch (err) {
@@ -37,14 +37,27 @@ export default function users(server) {
         }
     });
 
-    // server.get('/api/login', async (req, res) => {
-    //     try {
-    //         res.json(req.session);
-    //     }
-    //     catch (err) {
-    //         res.status(500).json({ message: err.message });
-    //     }
-    // });
+    server.patch('/api/user/:id', async (req, res) => {
+        try {
+            const user = await userModel.findById(req.params.id);
+            if (user) {
+                req.body.username? user.username = req.body.username : null;
+                req.body.name? user.name = req.body.name : null;
+                req.body.lastname? user.lastname = req.body.lastname : null;
+                req.body.password? user.password = req.body.password : null;
+                const result = await user.save();
+                console.log(result);
+                res.status(200).json(result);
+                }
+            else {
+                res.status(404).json({ message: 'User not found' });
+            }          
+        }
+        catch (err) {
+            console.log(err)
+            res.status(500).json({ message: err.message });
+        }
+})
 
     server.post('/api/login', async (req, res) => {
         if (req.session.login) {
@@ -60,7 +73,6 @@ export default function users(server) {
                         req.session.login = user._id;
 
                         res.status(200).json(user._id);
-                        console.log(req.session);
                     }
                     else {
                         res.status(401).json({
@@ -75,6 +87,19 @@ export default function users(server) {
             catch (err) {
                 res.status(500).json({ message: err.message });
             }
+        }
+    });
+
+    server.get('/api/login', async (req, res) => {
+        try {
+            if (req.session.login) {
+                res.status(200).json(req.session.login);
+            }
+            else {
+                res.status(404).json(null);
+            }
+        } catch (err) {
+            res.status(500).json({ message: err.message });
         }
     });
 
